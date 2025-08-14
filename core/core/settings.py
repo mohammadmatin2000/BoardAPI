@@ -14,7 +14,7 @@ SECRET_KEY = 'django-insecure-xl1svhd@t3wre3=17qz946k@eg1b7z_ds%swqa1@*5lup1^)0i
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -26,6 +26,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'drf_yasg',
+
+    'accounts',
+    'game'
 ]
 
 MIDDLEWARE = [
@@ -130,3 +135,5 @@ EMAIL_USE_TLS = config("EMAIL_USE_TLS", default=True, cast=bool)
 EMAIL_USE_SSL = config("EMAIL_USE_SSL", default=False, cast=bool)
 DEFAULT_FROM_EMAIL = "mohammadmatin13872008@gmail.com"
 PASSWORD_RESET_TIMEOUT = 60 * 60 * 4
+
+AUTH_USER_MODEL = "accounts.User"

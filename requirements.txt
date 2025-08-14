@@ -1,3 +1,6 @@
 django==4.2
 python-decouple
 psycopg[binary]
+Pillow
+drf-yasg
+djangorestframework

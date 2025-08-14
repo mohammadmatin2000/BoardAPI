@@ -3,7 +3,7 @@ version: "3.8"
 services:
   db:
     image: postgres
-    container_name: db-1
+    container_name: db
     environment:
       POSTGRES_USER: username
       POSTGRES_PASSWORD: password
@@ -18,7 +18,7 @@ services:
     build:
       context: .
       dockerfile: ./dockerfiles/dev/django/Dockerfile
-    container_name: backend-1
+    container_name: backend
     volumes:
       - ./core:/usr/src/app
     working_dir: /usr/src/app
