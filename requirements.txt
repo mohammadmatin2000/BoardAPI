@@ -4,3 +4,4 @@ psycopg[binary]
 Pillow
 drf-yasg
 djangorestframework
+pygammon

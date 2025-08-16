@@ -1,0 +1,4 @@
+backgammon-frontend/node_modules
+backgammon-frontend/dist
+*.pyc
+__pycache__/

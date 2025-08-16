@@ -1,15 +1,14 @@
 from rest_framework import serializers
 from .models import Game, Move
 # ======================================================================================================================
-# Serializer برای مدل Game
-class GameSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Game
-        fields = '__all__'
-# ======================================================================================================================
-# Serializer برای مدل Move
 class MoveSerializer(serializers.ModelSerializer):
     class Meta:
         model = Move
-        fields = '__all__'
+        fields = ['id', 'player', 'move_data', 'created_date', 'updated_date']
+# ======================================================================================================================
+class GameSerializer(serializers.ModelSerializer):
+    moves = MoveSerializer(many=True, read_only=True)
+    class Meta:
+        model = Game
+        fields = ['id', 'player_name', 'board_state', 'current_turn', 'is_finished', 'created_date', 'moves']
 # ======================================================================================================================

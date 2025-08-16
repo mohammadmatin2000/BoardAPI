@@ -1,9 +1,9 @@
-from rest_framework.routers import DefaultRouter
-from .views import GameViewSet, MoveViewSet
+from django.urls import path
+from .views import GameCreateView, GameDetailView, MakeMoveView
 # ======================================================================================================================
-router = DefaultRouter()
-router.register(r'games', GameViewSet)
-router.register(r'moves', MoveViewSet)
-# ======================================================================================================================
-urlpatterns = router.urls
+urlpatterns = [
+    path("games/", GameCreateView.as_view(), name="create-game"),
+    path("games/<int:pk>/", GameDetailView.as_view(), name="game-detail"),
+    path("games/<int:pk>/move/", MakeMoveView.as_view(), name="make-move"),
+]
 # ======================================================================================================================

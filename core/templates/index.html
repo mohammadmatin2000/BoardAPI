@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Backgammon</title>
+  <style>
+    body {
+      font-family: Tahoma, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 0;
+      padding: 20px;
+      background-color: #f4f0e8;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .board-container {
+      display: flex;
+      flex-direction: column;
+      background-color: #c19a6b;
+      border: 6px solid #654321;
+      border-radius: 15px;
+      padding: 10px;
+      box-shadow: 0 8px 15px rgba(0,0,0,0.3);
+    }
+
+    .row {
+      display: flex;
+    }
+
+    .cell {
+      width: 80px;
+      height: 300px;
+      position: relative;
+      border-left: 1px solid #654321;
+      border-right: 1px solid #654321;
+      overflow: hidden;
+    }
+
+    .triangle {
+      width: 0;
+      height: 0;
+      border-left: 40px solid transparent;
+      border-right: 40px solid transparent;
+      position: absolute;
+      bottom: 0;
+      transition: transform 0.3s;
+    }
+
+    .triangle.dark {
+      border-bottom: 300px solid #333;
+    }
+
+    .triangle.light {
+      border-bottom: 300px solid #f2d2a0;
+    }
+
+    .piece {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 2px solid #333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: bold;
+      font-size: 18px;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+      margin-bottom: 10px;
+    }
+
+    .piece.white {
+      background-color: #fff;
+      color: #000;
+    }
+
+    .piece.black {
+      background-color: #000;
+      color: #fff;
+    }
+
+    .dice {
+      display: flex;
+      margin-top: 20px;
+    }
+
+    .die {
+      width: 40px;
+      height: 40px;
+      margin: 0 5px;
+      background-color: #fff;
+      border: 2px solid #333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 18px;
+      font-weight: bold;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Backgammon</h1>
+  <div class="board-container" id="board"></div>
+  <div class="dice" id="dice"></div>
+
+  <script>
+    const boardContainer = document.getElementById('board');
+    const diceContainer = document.getElementById('dice');
+
+    // تخته با مهره‌ها
+    const initialBoard = [
+      { color: 'white', count: 2 }, {}, {}, {}, {}, { color: 'black', count: 5 },
+      { color: 'black', count: 3 }, {}, {}, {}, { color: 'white', count: 5 }, {},
+      {}, { color: 'black', count: 5 }, {}, {}, {}, { color: 'white', count: 3 },
+      { color: 'white', count: 5 }, {}, {}, {}, {}, { color: 'black', count: 2 }
+    ];
+
+    function renderBoard(board) {
+      boardContainer.innerHTML = '';
+
+      // بالای تخته (خانه‌های 12 تا 23)
+      const topRow = document.createElement('div');
+      topRow.classList.add('row');
+      board.slice(12).forEach((cell, i) => {
+        const cellDiv = document.createElement('div');
+        cellDiv.classList.add('cell');
+
+        // مثلث‌ها
+        const triangle = document.createElement('div');
+        triangle.classList.add('triangle');
+        triangle.classList.add(i % 2 === 0 ? 'dark' : 'light');
+        cellDiv.appendChild(triangle);
+
+        // مهره‌ها
+        if (cell.color) {
+          for (let j = 0; j < cell.count; j++) {
+            const piece = document.createElement('div');
+            piece.classList.add('piece', cell.color);
+            piece.style.bottom = `${j * 62}px`;
+            piece.innerText = j === 0 && cell.count > 1 ? cell.count : '';
+            cellDiv.appendChild(piece);
+          }
+        }
+
+        topRow.appendChild(cellDiv);
+      });
+      boardContainer.appendChild(topRow);
+
+      // پایین تخته (خانه‌های 11 تا 0)
+      const bottomRow = document.createElement('div');
+      bottomRow.classList.add('row');
+      board.slice(0, 12).reverse().forEach((cell, i) => {
+        const cellDiv = document.createElement('div');
+        cellDiv.classList.add('cell');
+
+        const triangle = document.createElement('div');
+        triangle.classList.add('triangle');
+        triangle.classList.add(i % 2 === 0 ? 'dark' : 'light');
+        triangle.style.top = '0';
+        triangle.style.bottom = '';
+        triangle.style.transform = 'rotate(180deg)';
+        cellDiv.appendChild(triangle);
+
+        if (cell.color) {
+          for (let j = 0; j < cell.count; j++) {
+            const piece = document.createElement('div');
+            piece.classList.add('piece', cell.color);
+            piece.style.top = `${j * 62}px`;
+            piece.innerText = j === 0 && cell.count > 1 ? cell.count : '';
+            cellDiv.appendChild(piece);
+          }
+        }
+
+        bottomRow.appendChild(cellDiv);
+      });
+      boardContainer.appendChild(bottomRow);
+    }
+
+    function rollDice() {
+      const die1 = Math.floor(Math.random() * 6) + 1;
+      const die2 = Math.floor(Math.random() * 6) + 1;
+      diceContainer.innerHTML = `
+        <div class="die">${die1}</div>
+        <div class="die">${die2}</div>
+      `;
+    }
+
+    renderBoard(initialBoard);
+    rollDice();
+  </script>
+</body>
+</html>
