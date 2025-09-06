@@ -8,9 +8,8 @@ from rest_framework.response import Response
 from src.board import Board          # مدیریت وضعیت تخته
 from src.colour import Colour        # رنگ مهره‌ها (WHITE/BLACK)
 from src.game import Game            # مدیریت نوبت‌ها و بازی
-from src.strategy_factory import StrategyFactory  # تولید استراتژی‌ها
 from src.strategies import (
-    HumanStrategy,                             # استراتژی بازیکن انسانی
+    # استراتژی بازیکن انسانی
     MoveFurthestBackStrategy,                  # Bot ساده
     Strategy                                   # کلاس پایه استراتژی
 )
@@ -20,7 +19,7 @@ from src.compare_all_moves_strategy import (       # استراتژی‌های B
     CompareAllMovesWeightingDistanceAndSinglesWithEndGame,
     CompareAllMovesWeightingDistanceAndSinglesWithEndGame2
 )
-from src.experiment import Experiment   # اجرای آزمایش خودکار بین استراتژی‌ها
+
 
 # ======================================================================================================================
 class BackgammonEngine:
