@@ -6,6 +6,7 @@ class Game(models.Model):
 
     board_state = models.JSONField(default=list)  # وضعیت مهره‌ها (24 خانه)
     current_turn = models.CharField(max_length=10, default="player")
+    opponent_name = models.CharField(max_length=100, default="AI")
     is_finished = models.BooleanField(default=False)
 
     # فیلدهای اضافی برای GameState

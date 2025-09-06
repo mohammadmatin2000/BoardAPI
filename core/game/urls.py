@@ -1,9 +1,9 @@
 from django.urls import path
-from .views import GameCreateView, GameDetailView, MakeMoveView
+from .views import StartGameView, MovePieceView, NewGameView
 # ======================================================================================================================
 urlpatterns = [
-    path("games/", GameCreateView.as_view(), name="create-game"),
-    path("games/<int:pk>/", GameDetailView.as_view(), name="game-detail"),
-    path("games/<int:pk>/move/", MakeMoveView.as_view(), name="make-move"),
+    path("backgammon/start/", StartGameView.as_view()),
+    path("backgammon/move/", MovePieceView.as_view()),
+    path("backgammon/new/", NewGameView.as_view()),
 ]
 # ======================================================================================================================

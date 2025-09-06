@@ -28,6 +28,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'drf_yasg',
+    'corsheaders',
+
 
     'accounts',
     'game'
@@ -35,6 +37,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -42,6 +45,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+
 
 ROOT_URLCONF = 'core.urls'
 
@@ -137,3 +142,8 @@ DEFAULT_FROM_EMAIL = "mohammadmatin13872008@gmail.com"
 PASSWORD_RESET_TIMEOUT = 60 * 60 * 4
 
 AUTH_USER_MODEL = "accounts.User"
+
+
+
+
+CORS_ALLOW_ALL_ORIGINS = True
