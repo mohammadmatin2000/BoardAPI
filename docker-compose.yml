@@ -1,5 +1,3 @@
-version: "3.8"
-
 services:
   db:
     image: postgres
@@ -20,25 +18,23 @@ services:
       dockerfile: ./dockerfiles/dev/django/Dockerfile
     container_name: backend
     volumes:
-      - ./core:/usr/src/app
-    working_dir: /usr/src/app
+      - ./core:/usr/logic/app
+    working_dir: /usr/logic/app
     command: python manage.py runserver 0.0.0.0:8000
     ports:
       - "8000:8000"
     depends_on:
       - db
-
-  smtp4dev:
-    image: rnwood/smtp4dev:v3
     restart: always
-    ports:
-      - '5000:80'
-      - '25:25'
-      - '143:143'
-    volumes:
-      - smtp4dev-data:/smtp4dev
-    environment:
-      - ServerOptions__HostName=smtp4dev
 
-volumes:
-  smtp4dev-data:
+  frontend:
+    build:
+      context:  .
+      dockerfile: ./dockerfiles/dev/django/Dockerfile-1 # Dockerfile برای React
+    container_name: frontend
+    ports:
+      - "3000:3000"
+    stdin_open: true
+    tty: true
+
+

@@ -11,11 +11,11 @@ from rest_framework.response import Response  # کلاس پاسخ‌دهی API
 # Game: مدیریت جریان بازی و نوبت‌ها
 # استراتژی‌ها برای Bot های مختلف
 # ======================================================================================================================
-from src.board import Board
-from src.colour import Colour
-from src.game import Game
-from src.strategies import MoveFurthestBackStrategy, Strategy
-from src.compare_all_moves_strategy import (
+from logic.board import Board
+from logic.colour import Colour
+from logic.game import Game
+from logic.strategies import MoveFurthestBackStrategy, Strategy
+from logic.compare_all_moves_strategy import (
     CompareAllMovesSimple,
     CompareAllMovesWeightingDistanceAndSingles,
     CompareAllMovesWeightingDistanceAndSinglesWithEndGame,

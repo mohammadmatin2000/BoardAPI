@@ -1,43 +1,27 @@
 from pathlib import Path
 from decouple import config
-
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+# ======================================================================================================================
+# مسیر پایه پروژه
 BASE_DIR = Path(__file__).resolve().parent.parent
-
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-xl1svhd@t3wre3=17qz946k@eg1b7z_ds%swqa1@*5lup1^)0i'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = ["*"]
-
-
-# Application definition
-
+# ======================================================================================================================
+# اپلیکیشن‌های نصب شده
 INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'rest_framework',
-    'drf_yasg',
-    'corsheaders',
-
-
-    'accounts',
-    'game'
+    'django.contrib.admin',       # پنل مدیریت Django
+    'django.contrib.auth',        # مدیریت کاربران و احراز هویت
+    'django.contrib.contenttypes',# مدیریت مدل‌ها و محتوا
+    'django.contrib.sessions',    # مدیریت session ها
+    'django.contrib.messages',    # پیام‌های فریمورک
+    'django.contrib.staticfiles', # مدیریت فایل‌های استاتیک
+    'rest_framework',             # فریمورک API
+    'drf_yasg',                   # مستندسازی API
+    'corsheaders',                # مدیریت CORS
+    'game',                       # اپلیکیشن داخلی پروژه
 ]
-
+# ======================================================================================================================
+# میدلور‌ها
 MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.security.SecurityMiddleware',   # امنیت پایه
+    'corsheaders.middleware.CorsMiddleware',           # فعال‌سازی CORS
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -45,15 +29,14 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
-
-
+# ======================================================================================================================
+# فایل‌های URL و قالب‌ها
 ROOT_URLCONF = 'core.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],
+        'DIRS': [BASE_DIR / 'templates'],  # مسیر قالب‌های پروژه
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -65,85 +48,33 @@ TEMPLATES = [
         },
     },
 ]
-
+# ======================================================================================================================
 WSGI_APPLICATION = 'core.wsgi.application'
-
-
-# Database
-# https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": config("PG_NAME", default="default_database"),
-        "USER": config("PG_USER", default="username"),
-        "PASSWORD": config("PG_PASSWORD", default="password"),
-        "HOST": config("PG_HOST", default="db"),
-        "PORT": config("PG_PORT", cast=int, default=5432),
-    }
-}
-
-
-# Password validation
-# https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
-
+# ======================================================================================================================
+# اعتبارسنجی پسورد کاربران
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
+    {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
-
-
-# Internationalization
-# https://docs.djangoproject.com/en/4.2/topics/i18n/
-
+# ======================================================================================================================
+# تنظیمات بین‌المللی
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'UTC'
-
 USE_I18N = True
-
 USE_TZ = True
-
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/4.2/howto/static-files/
-
+# ======================================================================================================================
+# فایل‌های استاتیک و رسانه
 STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
-MEDIA_ROOT = BASE_DIR / "media"
+STATICFILES_DIRS = [BASE_DIR / "static"]  # مسیرهای اضافی استاتیک
 MEDIA_URL = "/media/"
-STATICFILES_DIRS = [
-    BASE_DIR / "static",
-]
-
-# Default primary key field type
-# https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
-
+MEDIA_ROOT = BASE_DIR / "media"
+# ======================================================================================================================
+# نوع پیش‌فرض کلید اصلی مدل‌ها
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = config("EMAIL_HOST", default="smtp.gmail.com")
-EMAIL_PORT = config("EMAIL_PORT", default=587, cast=int)
-EMAIL_HOST_USER = config("EMAIL_HOST_USER", default="mohammadmatin13872008@gmail.com")
-EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD", default="hizp wqll tslh vomm")
-EMAIL_USE_TLS = config("EMAIL_USE_TLS", default=True, cast=bool)
-EMAIL_USE_SSL = config("EMAIL_USE_SSL", default=False, cast=bool)
-DEFAULT_FROM_EMAIL = "mohammadmatin13872008@gmail.com"
-PASSWORD_RESET_TIMEOUT = 60 * 60 * 4
-
-AUTH_USER_MODEL = "accounts.User"
-
-
-
-
-CORS_ALLOW_ALL_ORIGINS = True
+# ======================================================================================================================
+# تنظیمات CORS
+CORS_ALLOW_ALL_ORIGINS = True  # برای توسعه فعال است، در production محدود شود
+# ======================================================================================================================
