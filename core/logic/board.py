@@ -1,8 +1,12 @@
-from random import shuffle  # برای مخلوط کردن لیست مهره‌ها (جهت تصادفی کردن انتخاب)
+from random import (
+    shuffle,
+)  # برای مخلوط کردن لیست مهره‌ها (جهت تصادفی کردن انتخاب)
 import copy  # برای کپی عمیق (deepcopy) از وضعیت تخته
 import json  # برای تبدیل وضعیت تخته به JSON
 from logic.colour import Colour  # کلاس رنگ مهره‌ها (سفید/سیاه)
 from logic.piece import Piece  # کلاس مهره
+
+
 # ======================================================================================================================
 class Board:
     """
@@ -76,7 +80,9 @@ class Board:
 
     # بررسی اینکه هیچ حرکتی ممکن نیست
     def no_moves_possible(self, colour, dice_roll):
-        piece_locations = list(set(x.location for x in self.get_pieces(colour)))
+        piece_locations = list(
+            set(x.location for x in self.get_pieces(colour))
+        )
         dice_roll = list(set(dice_roll))
 
         pieces = [self.get_piece_at(loc) for loc in piece_locations]
@@ -96,9 +102,9 @@ class Board:
     # ===================================================================================
     def move_piece(self, piece, die_roll):
         if piece not in self.__pieces:
-            raise Exception('این مهره متعلق به این تخته نیست')
+            raise Exception("این مهره متعلق به این تخته نیست")
         if not self.is_move_possible(piece, die_roll):
-            raise Exception('این حرکت معتبر نیست')
+            raise Exception("این حرکت معتبر نیست")
 
         # اگر مهره سیاه باشد حرکت معکوس است
         if piece.colour == Colour.BLACK:
@@ -112,9 +118,14 @@ class Board:
 
         # اگر خانه مقصد فقط یک مهره حریف داشته باشد → آن مهره زده می‌شود
         pieces_at_new_location = self.pieces_at(new_location)
-        if len(pieces_at_new_location) == 1 and pieces_at_new_location[0].colour != piece.colour:
+        if (
+            len(pieces_at_new_location) == 1
+            and pieces_at_new_location[0].colour != piece.colour
+        ):
             piece_to_take = pieces_at_new_location[0]
-            piece_to_take.location = self.__taken_location(piece_to_take.colour)
+            piece_to_take.location = self.__taken_location(
+                piece_to_take.colour
+            )
 
         # به‌روزرسانی موقعیت مهره
         piece.location = new_location
@@ -144,13 +155,20 @@ class Board:
 
     def has_game_ended(self):
         """بررسی پایان بازی (تمام شدن مهره‌های یک بازیکن)"""
-        return len(self.get_pieces(Colour.WHITE)) == 0 or len(self.get_pieces(Colour.BLACK)) == 0
+        return (
+            len(self.get_pieces(Colour.WHITE)) == 0
+            or len(self.get_pieces(Colour.BLACK)) == 0
+        )
 
     def who_won(self):
         """برگرداندن برنده بازی"""
         if not self.has_game_ended():
-            raise Exception('بازی هنوز تمام نشده است')
-        return Colour.WHITE if len(self.get_pieces(Colour.WHITE)) == 0 else Colour.BLACK
+            raise Exception("بازی هنوز تمام نشده است")
+        return (
+            Colour.WHITE
+            if len(self.get_pieces(Colour.WHITE)) == 0
+            else Colour.BLACK
+        )
 
     def create_copy(self):
         """ایجاد یک کپی عمیق از وضعیت تخته"""
@@ -201,8 +219,8 @@ class Board:
             pieces = self.pieces_at(location)
             if pieces:
                 data[location] = {
-                    'colour': str(pieces[0].colour),
-                    'count': len(pieces)
+                    "colour": str(pieces[0].colour),
+                    "count": len(pieces),
                 }
         return json.dumps(data)
 
@@ -223,4 +241,6 @@ class Board:
     def __remove_piece(self, piece):
         """حذف مهره از تخته (برای خروج یا خورده شدن)"""
         self.__pieces.remove(piece)
+
+
 # ======================================================================================================================

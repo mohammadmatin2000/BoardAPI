@@ -1,4 +1,6 @@
 from enum import Enum  # برای تعریف نوع شمارشی (enum) استفاده می‌شود
+
+
 # ======================================================================================================================
 class Colour(Enum):
     """
@@ -23,7 +25,7 @@ class Colour(Enum):
         """
         نمایش رشته‌ای رنگ‌ها برای استفاده در خروجی JSON یا چاپ.
         """
-        return 'white' if self == Colour.WHITE else 'black'
+        return "white" if self == Colour.WHITE else "black"
 
     # ---------------------------------------------------------------------------------
     @staticmethod
@@ -32,10 +34,12 @@ class Colour(Enum):
         تبدیل رشته‌ی متنی ('white' یا 'black') به مقدار enum متناظر.
         اگر رشته نامعتبر باشد خطا می‌دهد.
         """
-        if colour_str == 'black':
+        if colour_str == "black":
             return Colour.BLACK
-        elif colour_str == 'white':
+        elif colour_str == "white":
             return Colour.WHITE
         else:
             raise Exception(f"{colour_str} رنگ معتبر نیست")
+
+
 # ======================================================================================================================

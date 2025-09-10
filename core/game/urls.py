@@ -1,5 +1,6 @@
 from django.urls import path
 from .views import StartGameView, MovePieceView, NewGameView
+
 # ======================================================================================================================
 urlpatterns = [
     path("backgammon/start/", StartGameView.as_view()),

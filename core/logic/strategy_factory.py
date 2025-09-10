@@ -1,6 +1,12 @@
 # وارد کردن کلاس‌های استراتژی مورد نیاز
 from logic.compare_all_moves_strategy import CompareAllMovesSimple
-from logic.strategies import MoveFurthestBackStrategy, HumanStrategy, MoveRandomPiece
+from logic.strategies import (
+    MoveFurthestBackStrategy,
+    HumanStrategy,
+    MoveRandomPiece,
+)
+
+
 # ======================================================================================================================
 class StrategyFactory:
     # =========================================================================
@@ -23,10 +29,12 @@ class StrategyFactory:
     def get_all():
         # لیست کلاس‌های استراتژی موجود
         strategies = [
-            MoveRandomPiece,           # استراتژی حرکت تصادفی مهره‌ها
+            MoveRandomPiece,  # استراتژی حرکت تصادفی مهره‌ها
             MoveFurthestBackStrategy,  # استراتژی حرکت مهره‌ای که عقب‌ترین است
-            CompareAllMovesSimple,     # استراتژی ساده بررسی همه حرکات
-            HumanStrategy,             # استراتژی برای بازیکن انسانی
+            CompareAllMovesSimple,  # استراتژی ساده بررسی همه حرکات
+            HumanStrategy,  # استراتژی برای بازیکن انسانی
         ]
         return strategies  # بازگرداندن لیست استراتژی‌ها
+
+
 # ======================================================================================================================

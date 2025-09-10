@@ -6,33 +6,36 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('game', '0003_rename_position_move_move_data_remove_game_player_and_more'),
+        (
+            "game",
+            "0003_rename_position_move_move_data_remove_game_player_and_more",
+        ),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='game',
-            name='first_borne',
+            model_name="game",
+            name="first_borne",
             field=models.IntegerField(default=0),
         ),
         migrations.AddField(
-            model_name='game',
-            name='first_hit',
+            model_name="game",
+            name="first_hit",
             field=models.IntegerField(default=0),
         ),
         migrations.AddField(
-            model_name='game',
-            name='second_borne',
+            model_name="game",
+            name="second_borne",
             field=models.IntegerField(default=0),
         ),
         migrations.AddField(
-            model_name='game',
-            name='second_hit',
+            model_name="game",
+            name="second_hit",
             field=models.IntegerField(default=0),
         ),
         migrations.AlterField(
-            model_name='game',
-            name='board_state',
+            model_name="game",
+            name="board_state",
             field=models.JSONField(default=list),
         ),
     ]

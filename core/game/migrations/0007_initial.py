@@ -9,26 +9,64 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('game', '0006_remove_move_game_delete_game_delete_move'),
+        ("game", "0006_remove_move_game_delete_game_delete_move"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Game',
+            name="Game",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('current_turn', models.CharField(choices=[('WHITE', 'White'), ('BLACK', 'Black')], max_length=10)),
-                ('winner', models.CharField(blank=True, max_length=10, null=True)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                (
+                    "current_turn",
+                    models.CharField(
+                        choices=[("WHITE", "White"), ("BLACK", "Black")],
+                        max_length=10,
+                    ),
+                ),
+                (
+                    "winner",
+                    models.CharField(blank=True, max_length=10, null=True),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='Piece',
+            name="Piece",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('colour', models.CharField(choices=[('WHITE', 'White'), ('BLACK', 'Black')], max_length=10)),
-                ('location', models.IntegerField()),
-                ('game', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='pieces', to='game.game')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "colour",
+                    models.CharField(
+                        choices=[("WHITE", "White"), ("BLACK", "Black")],
+                        max_length=10,
+                    ),
+                ),
+                ("location", models.IntegerField()),
+                (
+                    "game",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="pieces",
+                        to="game.game",
+                    ),
+                ),
             ],
         ),
     ]

@@ -6,45 +6,45 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('game', '0002_alter_game_status'),
+        ("game", "0002_alter_game_status"),
     ]
 
     operations = [
         migrations.RenameField(
-            model_name='move',
-            old_name='position',
-            new_name='move_data',
+            model_name="move",
+            old_name="position",
+            new_name="move_data",
         ),
         migrations.RemoveField(
-            model_name='game',
-            name='player',
+            model_name="game",
+            name="player",
         ),
         migrations.RemoveField(
-            model_name='game',
-            name='status',
+            model_name="game",
+            name="status",
         ),
         migrations.RemoveField(
-            model_name='game',
-            name='turn',
+            model_name="game",
+            name="turn",
         ),
         migrations.AddField(
-            model_name='game',
-            name='current_turn',
-            field=models.CharField(default='player', max_length=10),
+            model_name="game",
+            name="current_turn",
+            field=models.CharField(default="player", max_length=10),
         ),
         migrations.AddField(
-            model_name='game',
-            name='is_finished',
+            model_name="game",
+            name="is_finished",
             field=models.BooleanField(default=False),
         ),
         migrations.AddField(
-            model_name='game',
-            name='player_name',
-            field=models.CharField(default='Player', max_length=100),
+            model_name="game",
+            name="player_name",
+            field=models.CharField(default="Player", max_length=100),
         ),
         migrations.AlterField(
-            model_name='game',
-            name='board_state',
+            model_name="game",
+            name="board_state",
             field=models.JSONField(default=dict),
         ),
     ]

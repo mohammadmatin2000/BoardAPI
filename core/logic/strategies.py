@@ -1,7 +1,11 @@
 import time  # برای ایجاد تاخیر در بازی انسان
 from random import shuffle  # برای جابجایی تصادفی مهره‌ها در استراتژی تصادفی
 from logic.piece import Piece  # وارد کردن کلاس Piece
-from logic.move_not_possible_exception import MoveNotPossibleException  # وارد کردن استثنا برای حرکت غیرمجاز
+from logic.move_not_possible_exception import (
+    MoveNotPossibleException,
+)  # وارد کردن استثنا برای حرکت غیرمجاز
+
+
 # ======================================================================================================================
 class Strategy:
     """کلاس پایه برای همه استراتژی‌ها"""
@@ -13,6 +17,8 @@ class Strategy:
     def game_over(self, opponents_activity):
         """می‌تواند توسط استراتژی‌ها هنگام پایان بازی استفاده شود"""
         pass
+
+
 # ======================================================================================================================
 class MoveFurthestBackStrategy(Strategy):
     """استراتژی حرکت مهره‌ای که در عقب‌ترین موقعیت است"""
@@ -39,7 +45,9 @@ class MoveFurthestBackStrategy(Strategy):
     def move_die_roll(board, colour, die_roll, make_move):
         """حرکت دادن یک مهره با یک تاس مشخص"""
         valid_pieces = board.get_pieces(colour)
-        valid_pieces.sort(key=Piece.spaces_to_home, reverse=True)  # مهره‌های عقب‌تر اول
+        valid_pieces.sort(
+            key=Piece.spaces_to_home, reverse=True
+        )  # مهره‌های عقب‌تر اول
 
         for piece in valid_pieces:
             if board.is_move_possible(piece, die_roll):
@@ -47,6 +55,8 @@ class MoveFurthestBackStrategy(Strategy):
                 return True
 
         return False  # هیچ حرکت معتبری وجود نداشت
+
+
 # ======================================================================================================================
 class HumanStrategy(Strategy):
     """استراتژی برای بازیکن انسانی"""
@@ -60,7 +70,10 @@ class HumanStrategy(Strategy):
 
     def move(self, board, colour, dice_roll, make_move, opponents_activity):
         """اجرای حرکت توسط بازیکن"""
-        print("نوبت %s است، شما %s هستید، تاس شما %s" % (self.__name, colour, dice_roll))
+        print(
+            "نوبت %s است، شما %s هستید، تاس شما %s"
+            % (self.__name, colour, dice_roll)
+        )
 
         while len(dice_roll) > 0 and not board.has_game_ended():
             board.print_board()  # چاپ وضعیت تخته
@@ -77,7 +90,11 @@ class HumanStrategy(Strategy):
 
             while True:
                 try:
-                    value = int(input("چند خانه حرکت کند (یا 0 برای انتخاب مهره دیگر)؟\n"))
+                    value = int(
+                        input(
+                            "چند خانه حرکت کند (یا 0 برای انتخاب مهره دیگر)؟\n"
+                        )
+                    )
                     if value == 0:
                         break
                     rolls_moved = make_move(piece.location, value)
@@ -92,21 +109,29 @@ class HumanStrategy(Strategy):
 
         print("نوبت شما پایان یافت!")
 
-
     def get_location(self, board, colour):
         """دریافت موقعیت مهره‌ای که بازیکن می‌خواهد حرکت دهد"""
         value = None
         while value is None:
             try:
-                location = int(input("موقعیت مهره‌ای که می‌خواهید حرکت دهید را وارد کنید:\n"))
+                location = int(
+                    input(
+                        "موقعیت مهره‌ای که می‌خواهید حرکت دهید را وارد کنید:\n"
+                    )
+                )
                 piece_at_location = board.get_piece_at(location)
-                if piece_at_location is None or piece_at_location.colour != colour:
+                if (
+                    piece_at_location is None
+                    or piece_at_location.colour != colour
+                ):
                     print("شما مهره‌ای در این موقعیت ندارید: %s" % location)
                 else:
                     value = location
             except ValueError:
                 print("عدد وارد نشده است! دوباره تلاش کنید")
         return value
+
+
 # ======================================================================================================================
 class MoveRandomPiece(Strategy):
     """استراتژی حرکت یک مهره تصادفی"""
@@ -124,4 +149,6 @@ class MoveRandomPiece(Strategy):
                 if board.is_move_possible(piece, die_roll):
                     make_move(piece.location, die_roll)
                     break
+
+
 # ======================================================================================================================

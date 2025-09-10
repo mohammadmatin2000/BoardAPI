@@ -10,9 +10,9 @@ from drf_yasg import openapi
 # تنظیم و ساخت مستندات Swagger و Redoc برای API
 schema_view = get_schema_view(
     openapi.Info(
-        title="Flower Shop API",        # عنوان API
-        default_version="v1",           # نسخه API
-        description="بازی تخت",         # توضیح کوتاه
+        title="Flower Shop API",  # عنوان API
+        default_version="v1",  # نسخه API
+        description="بازی تخت",  # توضیح کوتاه
     ),
     public=True,
     permission_classes=(permissions.AllowAny,),  # همه اجازه دسترسی دارند
@@ -20,23 +20,20 @@ schema_view = get_schema_view(
 # ======================================================================================================================
 # آدرس‌دهی URLها
 urlpatterns = [
-    path('admin/', admin.site.urls),         # پنل مدیریت Django
-    path('game/', include('game.urls')),    # URLهای اپلیکیشن game
-
+    path("admin/", admin.site.urls),  # پنل مدیریت Django
+    path("game/", include("game.urls")),  # URLهای اپلیکیشن game
     # مسیر JSON مستندات API بدون UI
     path(
         "swagger.<format>/",
         schema_view.without_ui(cache_timeout=0),
         name="schema-json",
     ),
-
     # صفحه مستندات Swagger UI
     path(
         "swagger/",
         schema_view.with_ui("swagger", cache_timeout=0),
         name="schema-swagger-ui",
     ),
-
     # صفحه مستندات Redoc
     path(
         "redoc/",
@@ -47,6 +44,10 @@ urlpatterns = [
 # ======================================================================================================================
 # اضافه کردن فایل‌های استاتیک و رسانه در حالت توسعه
 if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns += static(
+        settings.MEDIA_URL, document_root=settings.MEDIA_ROOT
+    )
+    urlpatterns += static(
+        settings.STATIC_URL, document_root=settings.STATIC_ROOT
+    )
 # ======================================================================================================================

@@ -1,7 +1,10 @@
 from ..settings import *
+
 # ======================================================================================================================
 # کلید امنیتی و حالت توسعه
-SECRET_KEY = config("DJANGO_SECRET_KEY", default="unsafe-secret-key")  # بهتره در production از env استفاده کنید
+SECRET_KEY = config(
+    "DJANGO_SECRET_KEY", default="unsafe-secret-key"
+)  # بهتره در production از env استفاده کنید
 DEBUG = True  # در production حتما False شود
 ALLOWED_HOSTS = ["*"]  # در production باید دامنه‌های مجاز مشخص شوند
 # ======================================================================================================================
@@ -12,7 +15,9 @@ DATABASES = {
         "NAME": config("PG_NAME", default="default_database"),
         "USER": config("PG_USER", default="username"),
         "PASSWORD": config("PG_PASSWORD", default="password"),
-        "HOST": config("PG_HOST", default="db"),  # نام سرویس دیتابیس در docker-compose
+        "HOST": config(
+            "PG_HOST", default="db"
+        ),  # نام سرویس دیتابیس در docker-compose
         "PORT": config("PG_PORT", cast=int, default=5432),
     }
 }

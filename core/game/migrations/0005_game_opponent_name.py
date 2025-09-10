@@ -6,13 +6,16 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('game', '0004_game_first_borne_game_first_hit_game_second_borne_and_more'),
+        (
+            "game",
+            "0004_game_first_borne_game_first_hit_game_second_borne_and_more",
+        ),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='game',
-            name='opponent_name',
-            field=models.CharField(default='AI', max_length=100),
+            model_name="game",
+            name="opponent_name",
+            field=models.CharField(default="AI", max_length=100),
         ),
     ]

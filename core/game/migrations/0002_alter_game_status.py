@@ -6,13 +6,22 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('game', '0001_initial'),
+        ("game", "0001_initial"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='game',
-            name='status',
-            field=models.CharField(choices=[('P', 'در حال انجام'), ('W', 'برد'), ('D', 'مساوی'), ('L', 'باخت')], default='P', max_length=1),
+            model_name="game",
+            name="status",
+            field=models.CharField(
+                choices=[
+                    ("P", "در حال انجام"),
+                    ("W", "برد"),
+                    ("D", "مساوی"),
+                    ("L", "باخت"),
+                ],
+                default="P",
+                max_length=1,
+            ),
         ),
     ]

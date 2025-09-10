@@ -4,7 +4,11 @@ from random import randint  # برای تولید تاس تصادفی
 from logic.board import Board  # کلاس اصلی برد
 from logic.colour import Colour  # کلاس رنگ (سفید/سیاه)
 from logic.strategies import Strategy  # استراتژی‌های بازی
-from logic.move_not_possible_exception import MoveNotPossibleException  # خطا در صورت حرکت غیرمجاز
+from logic.move_not_possible_exception import (
+    MoveNotPossibleException,
+)  # خطا در صورت حرکت غیرمجاز
+
+
 # ======================================================================================================================
 # ======================================================================
 # کلاس ReadOnlyBoard
@@ -33,14 +37,23 @@ class ReadOnlyBoard:
 
     # خطا در صورت هر نوع تغییر غیرمجاز
     def __raise_exception__(self):
-        raise Exception("Do not try and change the board directly, use the make_move parameter instead")
+        raise Exception(
+            "Do not try and change the board directly, use the make_move parameter instead"
+        )
+
+
 # ======================================================================================================================
 # ======================================================================
 # کلاس Game
 # مدیریت اجرای کل بازی (تاس، حرکت مهره‌ها، برد/باخت)
 # ======================================================================
 class Game:
-    def __init__(self, white_strategy: Strategy, black_strategy: Strategy, first_player: Colour):
+    def __init__(
+        self,
+        white_strategy: Strategy,
+        black_strategy: Strategy,
+        first_player: Colour,
+    ):
         """
         سازنده بازی:
         white_strategy -> استراتژی بازیکن سفید
@@ -51,7 +64,7 @@ class Game:
         self.first_player = first_player  # بازیکن شروع‌کننده
         self.strategies = {  # نگهداری استراتژی بازیکنان
             Colour.WHITE: white_strategy,
-            Colour.BLACK: black_strategy
+            Colour.BLACK: black_strategy,
         }
 
     # ------------------------------------------------------------------
@@ -60,7 +73,7 @@ class Game:
         اجرای بازی تا زمانی که برنده مشخص شود
         """
         if verbose:
-            print('%s goes first' % self.first_player)
+            print("%s goes first" % self.first_player)
             self.board.print_board()
 
         i = self.first_player.value  # تعیین نوبت بازیکن
@@ -83,16 +96,28 @@ class Game:
             # -------------------------------
             # متد داخلی برای انجام یک حرکت
             def handle_move(location, die_roll):
-                rolls_to_move = self.get_rolls_to_move(location, die_roll, dice_roll)
+                rolls_to_move = self.get_rolls_to_move(
+                    location, die_roll, dice_roll
+                )
                 if rolls_to_move is None:
-                    raise MoveNotPossibleException("You cannot move that piece %d" % die_roll)
+                    raise MoveNotPossibleException(
+                        "You cannot move that piece %d" % die_roll
+                    )
 
                 for roll in rolls_to_move:
-                    piece = self.board.get_piece_at(location)  # گرفتن مهره در موقعیت
+                    piece = self.board.get_piece_at(
+                        location
+                    )  # گرفتن مهره در موقعیت
                     original_location = location
                     location = self.board.move_piece(piece, roll)  # حرکت مهره
                     dice_roll.remove(roll)  # حذف تاس مصرف‌شده
-                    moves.append({'start_location': original_location, 'die_roll': roll, 'end_location': location})
+                    moves.append(
+                        {
+                            "start_location": original_location,
+                            "die_roll": roll,
+                            "end_location": location,
+                        }
+                    )
                     previous_dice_roll.append(roll)
                 return rolls_to_move
 
@@ -109,23 +134,32 @@ class Game:
                 ReadOnlyBoard(self.board),  # برد فقط خواندنی
                 colour,  # رنگ بازیکن
                 dice_roll.copy(),  # تاس‌ها
-                lambda location, die_roll: handle_move(location, die_roll),  # تابع حرکت
-                {'dice_roll': previous_dice_roll, 'opponents_move': opponents_moves}  # اطلاعات نوبت قبل
+                lambda location, die_roll: handle_move(
+                    location, die_roll
+                ),  # تابع حرکت
+                {
+                    "dice_roll": previous_dice_roll,
+                    "opponents_move": opponents_moves,
+                },  # اطلاعات نوبت قبل
             )
 
             # -------------------------------
             # اگر بازیکن حرکت‌هاشو کامل استفاده نکرد
             if verbose and len(dice_roll) > 0:
-                print('FYI not all moves were made. %s playing %s did not move %s' % (
-                    colour,
-                    self.strategies[colour].__class__.__name__,
-                    dice_roll))
+                print(
+                    "FYI not all moves were made. %s playing %s did not move %s"
+                    % (
+                        colour,
+                        self.strategies[colour].__class__.__name__,
+                        dice_roll,
+                    )
+                )
                 self.board.print_board()
                 state = {
-                    'board': json.loads(board_snapshot),
-                    'dice_roll': dice_roll_snapshot,
-                    'colour_to_move': colour.__str__(),
-                    'strategy': self.strategies[colour].__class__.__name__,
+                    "board": json.loads(board_snapshot),
+                    "dice_roll": dice_roll_snapshot,
+                    "colour_to_move": colour.__str__(),
+                    "strategy": self.strategies[colour].__class__.__name__,
                 }
                 print(json.dumps(state))
 
@@ -140,11 +174,10 @@ class Game:
             # بررسی پایان بازی
             if self.board.has_game_ended():
                 if verbose:
-                    print('%s has won!' % self.board.who_won())
-                self.strategies[colour.other()].game_over({
-                    'dice_roll': full_dice_roll,
-                    'opponents_move': moves
-                })
+                    print("%s has won!" % self.board.who_won())
+                self.strategies[colour.other()].game_over(
+                    {"dice_roll": full_dice_roll, "opponents_move": moves}
+                )
                 break
 
     # ------------------------------------------------------------------
@@ -154,7 +187,9 @@ class Game:
         """
         # اگر دقیقا یکی از تاس‌ها برابر حرکت خواسته شده باشه
         if available_rolls.__contains__(requested_move):
-            if self.board.is_move_possible(self.board.get_piece_at(location), requested_move):
+            if self.board.is_move_possible(
+                self.board.get_piece_at(location), requested_move
+            ):
                 return [requested_move]
             return None
 
@@ -168,7 +203,9 @@ class Game:
         current_location = location
 
         # اگر اولین تاس قابل استفاده نباشه، ترتیب تاس‌ها رو برعکس کن
-        if not board.is_move_possible(board.get_piece_at(current_location), available_rolls[0]):
+        if not board.is_move_possible(
+            board.get_piece_at(current_location), available_rolls[0]
+        ):
             available_rolls = available_rolls.copy()
             available_rolls.reverse()
 
@@ -191,4 +228,6 @@ class Game:
     def who_won(self):
         """برمی‌گردونه چه کسی برنده بازی شده"""
         return self.board.who_won()
+
+
 # ======================================================================================================================

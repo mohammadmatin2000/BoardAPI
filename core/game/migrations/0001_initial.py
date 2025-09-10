@@ -15,26 +15,66 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Game',
+            name="Game",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('board_state', models.JSONField(default=list)),
-                ('turn', models.CharField(default='P', max_length=1)),
-                ('status', models.CharField(choices=[('P', 'در حال بازی'), ('W', 'برد'), ('D', 'مساوی')], default='P', max_length=1)),
-                ('created_date', models.DateTimeField(auto_now_add=True)),
-                ('updated_date', models.DateTimeField(auto_now=True)),
-                ('player', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("board_state", models.JSONField(default=list)),
+                ("turn", models.CharField(default="P", max_length=1)),
+                (
+                    "status",
+                    models.CharField(
+                        choices=[
+                            ("P", "در حال بازی"),
+                            ("W", "برد"),
+                            ("D", "مساوی"),
+                        ],
+                        default="P",
+                        max_length=1,
+                    ),
+                ),
+                ("created_date", models.DateTimeField(auto_now_add=True)),
+                ("updated_date", models.DateTimeField(auto_now=True)),
+                (
+                    "player",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='Move',
+            name="Move",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('player', models.CharField(max_length=10)),
-                ('position', models.JSONField()),
-                ('created_date', models.DateTimeField(auto_now_add=True)),
-                ('updated_date', models.DateTimeField(auto_now=True)),
-                ('game', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='moves', to='game.game')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("player", models.CharField(max_length=10)),
+                ("position", models.JSONField()),
+                ("created_date", models.DateTimeField(auto_now_add=True)),
+                ("updated_date", models.DateTimeField(auto_now=True)),
+                (
+                    "game",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="moves",
+                        to="game.game",
+                    ),
+                ),
             ],
         ),
     ]
