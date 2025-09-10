@@ -28,7 +28,7 @@ type State = {
 
 export class BoardComponent extends React.Component<{}, State> {
 
-    private readonly backendurl = 'http://localhost:8000/game/backgammon'
+    private readonly backendurl = 'http://localhost:80/game/backgammon'
     private readonly audioDiceRoll = new Audio(`${process.env.PUBLIC_URL}/dice-roll.mp3`);
     private readonly audioPieceMove = new Audio(`${process.env.PUBLIC_URL}/piece-move.mp3`);
     constructor(props: any) {
