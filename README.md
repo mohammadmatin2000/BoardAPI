@@ -15,8 +15,8 @@
 <hr>
   
 <h1>🎞️ Demo</h1>
-![BoardAPI Presentation](assets/BoardApi.gif)
-
+<hr>
+<img width="1908" height="917" alt="Screenshot 2025-09-10 195034" src="https://github.com/user-attachments/assets/c5739b9e-fffe-40b7-a3d2-2b21cfc58fbc" />
 
 <hr>
   
