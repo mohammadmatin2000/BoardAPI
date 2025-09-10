@@ -82,7 +82,7 @@ This version has some tools that it is not exist in [Deployment](#deployment) li
 ### Flake8 and Black
 As i said <a href='https://pypi.org/project/flake8-django/'>Flake8</a> and <a href='https://pypi.org/project/black/'>Black</a> are helping for reformat all codes by <a href='https://peps.python.org/pep-0008/'>PEP8</a> rule, for using enter this command :
 ```bash
-docker-comopose exec backend sh -c "black . -l 78 && flake8"
+"docker-compose exec backend sh -c "black . -l 78 && flake8"
 ```
 
 
